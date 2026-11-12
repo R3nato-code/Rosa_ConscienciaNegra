@@ -1,7 +1,8 @@
 # Sobre Etnias — Especificação de Design (UI/UX)
 
 Documento de referência para implementação e revisão visual.
-Etapa atual: **tela de entrada** (`index.html`, `style.css`, `script.js`).
+Etapa atual: **site multipáginas** — entrada + início, protagonismo, cultura,
+glossário e quiz, todos sobre `style.css` e `script.js`.
 
 ---
 
@@ -163,13 +164,47 @@ Diretrizes:
 
 ## 6. Componentes e estados
 
+### 6.1 Navegação e estrutura
+
+- **Cabeçalho fixo** em todas as páginas: marca (link para o início), menu com
+  os cinco destinos e a assinatura institucional. Ao rolar, ganha fundo mais
+  opaco e sombra (`is-rolado`).
+- **Página atual** marcada com `aria-current="page"`, em terracota e com fio
+  central no link.
+- **Atalho de acessibilidade** ("Pular para o conteúdo") é o primeiro elemento
+  focável; aparece só ao receber foco.
+- **Rodapé** com realização, desenvolvedores, navegação e créditos de imagem,
+  formando uma segunda via de navegação.
+
+### 6.2 Estados e microinterações
+
 | Componente | Estados |
 |---|---|
-| Botão principal | repouso (creme com texto escuro), hover (terracota sobe de baixo, seta desliza), active (afunda 1,5%), foco (anel terracota 2px/offset 3px), disabled |
+| Botão principal | repouso (creme com texto escuro), hover (terracota sobe de baixo, seta desliza), active (afunda ~1,5%), foco (anel terracota 2px/offset 3px), disabled |
+| Botão fantasma / "Voltar" | repouso (contorno), hover (preenche com ouro translúcido e o símbolo recua), foco, active |
+| Link do menu | repouso, hover (texto creme + fio ouro que cresce do centro), ativo (terracota), foco |
+| Marca / assinatura | hover (símbolo gira levemente, borda e sombra aquecem), foco |
 | Link "pular" | repouso (texto suave), hover (marrom + fio ouro), foco |
-| Retrato | entrada animada, hover (opcional: levantar o véu), foco não se aplica (não é interativo) |
-| Item de índice | repouso, hover (fio ouro) — apenas nas etapas seguintes |
-| Campo de busca (futuro) | vazio, digitando, sem resultados |
+| Retrato | entrada animada; hover opcional levanta o véu — não é interativo |
+| Item de índice | repouso, hover (fio ouro cresce, número desloca, status acende) |
+| Cartão de personalidade | repouso, hover (sobe 6px, borda e sombra aquecem, fio superior se expande, nome em ouro) |
+| Filtro / aba | repouso, hover (sobe 2px, borda ouro), selecionado (fundo ouro translúcido), foco, active |
+| Campo de busca | vazio, digitando, com resultados (termo destacado em `<mark>`), sem resultados, botão "Limpar", atalho `/` |
+| Painel de cultura | hover (borda e sombra), aba controlada por `role="tablist"` |
+| Alternativa do quiz | repouso, hover (borda e letra acesas), correta, incorreta, desabilitada após responder |
+| Voltar ao topo | aparece após rolagem; hover sobe o ícone |
+| Revelação ao rolar | `IntersectionObserver` aplica `.is-visivel` uma única vez |
+
+### 6.3 Sistema de hover
+
+- Só em ponteiro fino (`@media (hover: hover) and (pointer: fine)`), para não
+  prender estados de hover no toque.
+- Transições entre 0,2s e 0,55s com `--ease-saida`; nenhuma animação de layout
+  (apenas `transform`, `opacity`, `filter`, `box-shadow`, cores).
+- Brilho quente que segue o ponteiro nos cartões, escrito em variáveis CSS pelo
+  `pointermove` com `requestAnimationFrame`.
+- `prefers-reduced-motion` remove transições, revelações e parallax, mantendo
+  todos os estados finais legíveis.
 
 ## 7. Acessibilidade
 
@@ -188,18 +223,29 @@ Diretrizes:
   terracota ~5,1:1 (vale para rótulos pequenos); botão creme com texto escuro
   ~15,4:1; hover terracota com texto escuro ~5,1:1.
 - Foco sempre visível (`:focus-visible`) com offset.
+- Atalho "Pular para o conteúdo" e destinos de foco com `tabindex="-1"`.
+- Abas de cultura com `role="tablist"`, `aria-selected`, painel `role="tabpanel"`
+  e navegação por setas/Home/End.
+- Busca do glossário com rótulo, `aria-live`, atalho `/` e resultado vazio
+  anunciado; o termo encontrado é marcado sem alterar o texto original do DOM.
+- Quiz com progresso em `role="progressbar"`, alternativas em lista de botões,
+  foco movido para o resultado e reinício acessível.
+- Alvos de toque com pelo menos 44px nas ações principais.
 - `prefers-reduced-motion`: animações desativadas, estados finais garantidos,
-  parallax desligado, "pular" oculto no modo compacto.
-- Sem rolagem horizontal (`overflow-x: clip` + `scrollbar-gutter: stable`).
+  parallax desligado, revelação ao rolar não aplicada; a entrada mostra o CTA
+  imediatamente e pula o fólio.
+- Sem rolagem horizontal (`overflow-x: clip` + `scrollbar-gutter: stable`);
+  verificado a 320px e 390px.
 
 ## 8. Breakpoints
 
 | Faixa | Largura | Comportamento |
 |---|---|---|
+| Celular estreito | ≤ 380px | menu rola horizontalmente, títulos reduzidos, cartões em 1 coluna |
+| Celular | ≤ 520px | selo empilhado, título 15vw, retratos lado a lado (cauda menor), CTA compacto; grades em 1 coluna |
 | Fólio | ≤ 700px | livro de mão: proporção `4/5`, largura `min(94vw, 68vh)` |
-| Celular | ≤ 520px | selo empilhado, título 15vw, retratos lado a lado (cauda menor), CTA compacto |
-| Tablet | ≤ 860px | retratos descem para uma linha própria, `transform` 3D desligado |
-| Desktop | > 860px | tríptico completo, parallax ativo |
+| Tablet | ≤ 860px | retratos da entrada descem para uma linha própria, `transform` 3D desligado; cabeçalho reorganizado |
+| Desktop | > 860px | tríptico completo, parallax ativo, grades de 2–3 colunas |
 | Paisagem baixa | alt. ≤ 560px | anel e lema ocultos, retratos reduzidos a 15vh |
 
 ## 9. Pendências de conteúdo

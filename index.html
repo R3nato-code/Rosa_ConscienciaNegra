@@ -167,8 +167,10 @@
        ========================================================== -->
   <div class="pagina" id="pagina">
 
+    <a class="pular-conteudo" href="#conteudo">Ir para o conteúdo</a>
+
     <header class="cabecalho">
-      <div class="assinatura">
+      <a class="assinatura" href="index.html" aria-label="Sobre Etnias — ir para o início">
         <span class="assinatura__simbolo" aria-hidden="true">
           <svg viewBox="0 0 48 48" width="46" height="46" role="presentation" focusable="false">
             <path d="M7 41V22.5a17 17 0 0 1 34 0V41" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
@@ -182,11 +184,17 @@
           <h1 class="assinatura__nome">Sobre Etnias</h1>
           <p class="assinatura__descritor">Acervo educativo · ERER</p>
         </div>
-      </div>
+      </a>
+      <nav class="menu-principal" aria-label="Navegação principal">
+        <a class="menu-principal__link" href="index.html" aria-current="page">Início</a>
+        <a class="menu-principal__link" href="protagonismo.html">Protagonismo</a>
+        <a class="menu-principal__link" href="cultura.html">Cultura</a>
+        <a class="menu-principal__link" href="glossario.html">Glossário</a>
+        <a class="menu-principal__link" href="quiz.html">Quiz</a>
+      </nav>
       <p class="cabecalho__meta">Colégio Estadual Presidente Kennedy<span class="cabecalho__ano">2026</span></p>
     </header>
-
-    <main id="conteudo">
+<main id="conteudo" tabindex="-1">
 
       <section class="heroi" id="inicio" aria-labelledby="titulo-inicio">
         <p class="rotulo">Início</p>
@@ -203,26 +211,44 @@
           comunidade.
         </p>
 
-        <ul class="indice" aria-label="Seções em preparação">
+        <div class="heroi__acoes">
+          <a class="botao" href="protagonismo.html">
+            <span class="botao__texto">Começar pelo protagonismo</span>
+            <svg class="botao__seta" width="22" height="10" viewBox="0 0 22 10" fill="none" aria-hidden="true" focusable="false">
+              <path d="M0 5h20M16 1l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="botao botao--fantasma" href="glossario.html">Pesquisar no glossário</a>
+        </div>
+
+        <ul class="indice" aria-label="Seções do acervo">
           <li class="indice__item">
-            <span class="indice__numero" aria-hidden="true">01</span>
-            <span class="indice__nome">Protagonismo e História</span>
-            <span class="indice__status">em preparação</span>
+            <a class="indice__link" href="protagonismo.html">
+              <span class="indice__numero" aria-hidden="true">01</span>
+              <span class="indice__nome">Protagonismo e História</span>
+              <span class="indice__status">explorar</span>
+            </a>
           </li>
           <li class="indice__item">
-            <span class="indice__numero" aria-hidden="true">02</span>
-            <span class="indice__nome">Cultura e Conhecimento</span>
-            <span class="indice__status">em preparação</span>
+            <a class="indice__link" href="cultura.html">
+              <span class="indice__numero" aria-hidden="true">02</span>
+              <span class="indice__nome">Cultura e Conhecimento</span>
+              <span class="indice__status">explorar</span>
+            </a>
           </li>
           <li class="indice__item">
-            <span class="indice__numero" aria-hidden="true">03</span>
-            <span class="indice__nome">Aprendizado · glossário</span>
-            <span class="indice__status">em preparação</span>
+            <a class="indice__link" href="glossario.html">
+              <span class="indice__numero" aria-hidden="true">03</span>
+              <span class="indice__nome">Aprendizado · glossário</span>
+              <span class="indice__status">pesquisar</span>
+            </a>
           </li>
           <li class="indice__item">
-            <span class="indice__numero" aria-hidden="true">04</span>
-            <span class="indice__nome">Quiz</span>
-            <span class="indice__status">em preparação</span>
+            <a class="indice__link" href="quiz.html">
+              <span class="indice__numero" aria-hidden="true">04</span>
+              <span class="indice__nome">Quiz</span>
+              <span class="indice__status">participar</span>
+            </a>
           </li>
         </ul>
       </section>
@@ -239,13 +265,27 @@
       </div>
       <div class="rodape__bloco">
         <p class="rodape__titulo">Desenvolvedores</p>
-        <p class="rodape__texto">[nome 1] · [nome 2] · [nome 3]</p>
+        <p class="rodape__texto">[Renato] · [Raniel]</p>
+      </div>
+      <div class="rodape__bloco">
+        <p class="rodape__titulo">Navegação</p>
+        <ul class="rodape__links">
+          <li><a href="index.html">Início</a></li>
+          <li><a href="protagonismo.html">Protagonismo e História</a></li>
+          <li><a href="cultura.html">Cultura e Conhecimento</a></li>
+          <li><a href="glossario.html">Aprendizado · Glossário</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+        </ul>
       </div>
       <div class="rodape__bloco">
         <p class="rodape__titulo">Créditos de imagens</p>
         <p class="rodape__texto">
           Retratos de acervo histórico. Origem e autoria em verificação.
         </p>
+      </div>
+      <div class="rodape__base">
+        <p>Sobre Etnias · Acervo educativo ERER 2026</p>
+        <p>Projeto escolar · HTML5, CSS3 e JavaScript</p>
       </div>
     </footer>
 
